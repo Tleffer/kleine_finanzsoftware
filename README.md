@@ -1,4 +1,4 @@
-# kleine_finanzsoftware
+# kleine finanzsoftware
 Eine kleine Finanzsoftware zum Verwalten von Privatfinanzen
 
 Eine kleine Finanzsoftware zum Verwalten von Privatfinanzen, geschrieben in C# .net Framework.
