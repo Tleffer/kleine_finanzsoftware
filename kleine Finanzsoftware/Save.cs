@@ -47,6 +47,11 @@ namespace kleine_Finanzsoftware
             XmlSerializer serializer = new XmlSerializer(typeof(Daten));
             serializer.Serialize(saveStream, data);
             saveStream.Close();
+            if(prefData.count > 10)
+            {
+                File.Delete(filePath + "&" + (prefData.count - 10) + ".xml"); // Delete old files to keep the last 10 saves
+            }
+            
             SavePrefernce();
         }
         public void SavePrefernce()

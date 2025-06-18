@@ -433,7 +433,7 @@ namespace kleine_Finanzsoftware
                 data.datenList[exp_index] = new DataEntry
                 {
                     datum = new DateTime(now.Year, now.Month, 1),
-                    gebucht = false,
+                    gebucht = data.datenList[exp_index].gebucht,
                     usage = "Fixausgaben",
                     money = expenses,
                     einnahme = false,

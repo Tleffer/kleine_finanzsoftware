@@ -55,6 +55,8 @@ namespace kleine_Finanzsoftware
             this.pref_button = new System.Windows.Forms.Label();
             this.save_bt = new System.Windows.Forms.Label();
             this.import_button = new System.Windows.Forms.Button();
+            this.show_button = new System.Windows.Forms.Button();
+            this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.finance_box.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +67,8 @@ namespace kleine_Finanzsoftware
             this.usage,
             this.date,
             this.money,
-            this.abgebucht});
+            this.abgebucht,
+            this.id});
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -333,12 +336,30 @@ namespace kleine_Finanzsoftware
             this.import_button.UseVisualStyleBackColor = false;
             this.import_button.Click += new System.EventHandler(this.import_button_Click);
             // 
+            // show_button
+            // 
+            this.show_button.BackColor = System.Drawing.Color.PeachPuff;
+            this.show_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.show_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.show_button.Location = new System.Drawing.Point(830, 12);
+            this.show_button.Name = "show_button";
+            this.show_button.Size = new System.Drawing.Size(201, 47);
+            this.show_button.TabIndex = 21;
+            this.show_button.Text = "Diesen Monat zeigen";
+            this.show_button.UseVisualStyleBackColor = false;
+            this.show_button.Click += new System.EventHandler(this.show_button_Click);
+            // 
+            // id
+            // 
+            this.id.Width = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1218, 695);
+            this.Controls.Add(this.show_button);
             this.Controls.Add(this.import_button);
             this.Controls.Add(this.pref_button);
             this.Controls.Add(this.save_bt);
@@ -389,6 +410,8 @@ namespace kleine_Finanzsoftware
         private Label pref_button;
         private Label save_bt;
         private Button import_button;
+        private Button show_button;
+        private ColumnHeader id;
     }
 }
 

@@ -26,6 +26,8 @@ namespace kleine_Finanzsoftware
         FormFix fixForm;
         public FormStats statsForm;
         Save save;
+
+        bool show_all = false;
         public Form1()
         {
             InitializeComponent();
@@ -88,6 +90,7 @@ namespace kleine_Finanzsoftware
             einnahmen_ausgaben_bt.Location = new Point(Width / 100 * 3, Height / 100 * 1);
             fix_bt.Location = new Point(Width / 100 * 15, Height / 100 * 1);
             stats_button.Location = new Point(Width / 100 * 27, Height / 100 * 1);
+            show_button.Location = new Point(Width / 100 * 83, Height / 100 * 1);
 
             save_bt.Location = new Point(Width / 100 * 94, Height / 100 * 1);
             pref_button.Location = new Point(Width / 100 * 98, Height / 100 * 1);
@@ -111,7 +114,10 @@ namespace kleine_Finanzsoftware
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
             int selected_index = listView1.SelectedIndices[0];
-            int list_index = data.datenList.Count - selected_index - 1;
+
+            
+            
+            int list_index = Convert.ToInt32(listView1.Items[selected_index].SubItems[4].Text);
             if(delete_mode)
             {
                 FormDelete delf = new FormDelete(list_index, data, this, false);
@@ -145,41 +151,62 @@ namespace kleine_Finanzsoftware
 
             for (int i = data.datenList.Count - 1; i >= 0; i--)
             {
-                //MessageBox.Show("" + i);
-                String[] entry = new string[4];
-                entry[0] = data.datenList[i].usage;
+                if ((IsInCurrentMonth(data.datenList[i].datum) && !show_all) || show_all)
+                {
 
-                entry[1] = data.datenList[i].datum.ToString();
-                if (data.datenList[i].einnahme)
-                {
-                    entry[2] = "" + data.datenList[i].money.ToString() + " €";
-                } else
-                {
-                    entry[2] = "-" + data.datenList[i].money.ToString() + " €";
-                } 
-                if (data.datenList[i].einnahme == false && data.datenList[i].gebucht)
-                {
-                    entry[3] = "Ja";
-                }
-                else if(data.datenList[i].einnahme == false)
-                {
-                    entry[3] = "Nein";
-                } else if (data.datenList[i].einnahme == true)
-                {
-                    entry[3] = "Einnahme";
-                }
-                 ListViewItem item = new ListViewItem(entry);
-                if (data.datenList[i].einnahme)
-                {
-                    item.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    item.BackColor = Color.LightCoral;
-                }
-                listView1.Items.Add(item);
 
-                if (data.datenList[i].gebucht == false && data.datenList[i].einnahme == false)
+                    //MessageBox.Show("" + i);
+                    String[] entry = new string[5];
+                    entry[0] = data.datenList[i].usage;
+
+                    entry[4] = i.ToString(); // Store the index in the last column for reference
+
+                    entry[1] = data.datenList[i].datum.ToString();
+                    if (data.datenList[i].einnahme)
+                    {
+                        entry[2] = "" + data.datenList[i].money.ToString() + " €";
+                    }
+                    else
+                    {
+                        entry[2] = "-" + data.datenList[i].money.ToString() + " €";
+                    }
+                    if (data.datenList[i].einnahme == false && data.datenList[i].gebucht)
+                    {
+                        entry[3] = "Ja";
+                    }
+                    else if (data.datenList[i].einnahme == false)
+                    {
+                        entry[3] = "Nein";
+                    }
+                    else if (data.datenList[i].einnahme == true)
+                    {
+                        entry[3] = "Einnahme";
+                    }
+                    ListViewItem item = new ListViewItem(entry);
+                    if (data.datenList[i].einnahme && !data.datenList[i].fix)
+                    {
+                        item.BackColor = Color.LightGreen;
+                    }
+                    else if (!data.datenList[i].fix)
+                    {
+                        item.BackColor = Color.LightCoral;
+                    }
+                    else if (data.datenList[i].fix && data.datenList[i].einnahme)
+                    {
+                        item.BackColor = Color.LightBlue;
+                    }
+                    else if (data.datenList[i].fix && !data.datenList[i].einnahme)
+                    {
+                        item.BackColor = Color.PeachPuff;
+                    }
+
+
+                    listView1.Items.Add(item);
+
+
+                }
+
+                if (data.datenList[i].gebucht == false && data.datenList[i].einnahme == false && ((IsInCurrentMonth(data.datenList[i].datum) && !show_all) || show_all))
                 {
                     open += data.datenList[i].money;
                 }
@@ -324,6 +351,21 @@ namespace kleine_Finanzsoftware
                 save.SaveData(data);
                 refresh_list();
             }
+        }
+
+        private void show_button_Click(object sender, EventArgs e)
+        {
+            show_all = !show_all;
+            if(show_all)
+            {
+                show_button.BackColor = Color.Tomato;
+                show_button.Text = "Alle Einträge zeigen";
+            } else
+            {
+                show_button.BackColor = Color.PeachPuff;
+                show_button.Text = "Diesen Monat zeigen";
+            }
+            refresh_list();
         }
     }
 }
