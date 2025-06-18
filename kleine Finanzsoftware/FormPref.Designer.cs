@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPref));
             this.create_new_bt = new System.Windows.Forms.RadioButton();
             this.load_data_bt = new System.Windows.Forms.RadioButton();
             this.ok_button = new System.Windows.Forms.Button();
@@ -138,6 +139,7 @@
             this.Controls.Add(this.load_data_bt);
             this.Controls.Add(this.create_new_bt);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormPref";
